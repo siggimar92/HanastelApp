@@ -34,6 +34,7 @@ public class DrinkDetailActivity extends AllDrinksActivity {
     DrinkDetailIngredientsAdapter adapter;
     boolean hasClickedFavorite = false;
     ArrayList<CocktailRecipe> favoriteDrinks = new ArrayList<CocktailRecipe>();
+    final int index = 0;
 
 
     @Override
@@ -60,19 +61,25 @@ public class DrinkDetailActivity extends AllDrinksActivity {
         drinkDescription.setText(cr.getDescription());
         drinkImage.setImageResource(cr.getImgResourceId(getApplicationContext()));
 
+        if (myDbHelper.searchForFavorite(cr)) {
+            hasClickedFavorite = true;
+            starButton.setBackgroundResource(R.drawable.btn_favorite_star);
+        } else {
+            hasClickedFavorite = false;
+            starButton.setBackgroundResource(R.drawable.btn_favorite_star_alpha);
+        }
+
         starButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!hasClickedFavorite) {
                     hasClickedFavorite = true;
                     starButton.setBackgroundResource(R.drawable.btn_favorite_star);
-                    //favoriteDrinks.add(cr);
+                    myDbHelper.addFavorite(cr);
                 } else {
                     hasClickedFavorite = false;
                     starButton.setBackgroundResource(R.drawable.btn_favorite_star_alpha);
-                    //if (!favoriteDrinks.isEmpty()) {
-                    //    favoriteDrinks.remove(cr);
-                    //}
+                    myDbHelper.deleteFavorite(cr);
                 }
             }
         });

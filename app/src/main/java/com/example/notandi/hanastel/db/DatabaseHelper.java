@@ -38,6 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
+    int index = 0;
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
@@ -196,7 +198,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 ir.setName(c.getString(1));
 
                 irs.add(ir);
-            }while(c.moveToNext());
+            } while(c.moveToNext());
         }
         c.close();
         return irs;
@@ -224,13 +226,43 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return myDataBase.rawQuery(mySql, null);
     }
 
-    public void addFavorite(int i, CocktailRecipe favRecipie){
+    public boolean searchForFavorite(CocktailRecipe favRecipie) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM Favorites WHERE CocktailId = \'" + favRecipie.getCocktailId() + "\'", null);
+
+        Log.d("------> Search Fav: ", "c-> " + c.getCount());
+
+        if (c.getCount() > 0) {
+            Log.d("------> Search Fav: ", "TRUE");
+            return true;
+        } else {
+            Log.d("------> Search Fav: ", "FALSE");
+            return false;
+        }
+    }
+    public void addFavorite(CocktailRecipe favRecipie){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("_id", i);
+        index++;
+        values.put("_id", index);
         values.put("CocktailId", favRecipie.getCocktailId());
 
         db.insert("Favorites", null, values);
+
+        Log.d("Add DB: ", "Successfully Added to DB" + favRecipie.getCocktailId());
+    }
+
+    public void deleteFavorite(CocktailRecipe favRecipie){
+        Log.d("Delete from DB: ", "inside delete");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //db.rawQuery("DELETE FROM Favorites WHERE CocktailId = \'" + favRecipie.getCocktailId() + "\'", null);
+
+        db.delete("Favorites", "CocktailId = '" + favRecipie.getCocktailId() + "'", null);
+
+        Log.d("Delete from DB: ", "Successfully deleted");
     }
 }

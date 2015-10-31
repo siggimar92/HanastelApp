@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HanastelApp.iml" filepath="$PROJECT_DIR$/HanastelApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hanastel.iml" filepath="$PROJECT_DIR$/Hanastel.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
