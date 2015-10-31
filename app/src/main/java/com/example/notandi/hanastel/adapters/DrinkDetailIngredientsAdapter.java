@@ -43,4 +43,9 @@ public class DrinkDetailIngredientsAdapter extends ArrayAdapter<Ingredient> {
 
         return convertView;
     }
+    
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
 }
