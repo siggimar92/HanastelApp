@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF"
     tools:context=".MainActivity"
-    android:weightSum="1">
+    android:weightSum="1" >
 
     <ImageView
         android:layout_width="fill_parent"
