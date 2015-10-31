@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -20,53 +20,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AllDrinksActivity"
+            android:name=".activities.AllDrinksActivity"
             android:label="AllDrinks"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.notandi.hanastel.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".DrinkDetailActivity"
+            android:name=".activities.DrinkDetailActivity"
             android:label="DrinkDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.notandi.hanastel.AllDrinksActivity" />
+                android:value=".activities.AllDrinksActivity" />
         </activity>
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".activities.SearchActivity"
             android:label="SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.notandi.hanastel.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".MyBarActivity"
+            android:name=".activities.MyBarActivity"
             android:label="MyBar"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.notandi.hanastel.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".RandomActivity"
+            android:name=".activities.RandomActivity"
             android:label="Random"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.notandi.hanastel.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
 

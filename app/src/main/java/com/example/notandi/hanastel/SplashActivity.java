@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.notandi.hanastel.activities.MainActivity;
+
 /**
  * Created by Notandi on 29-Oct-15.
  */

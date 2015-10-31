@@ -58,7 +58,7 @@
             android:textSize="18dp"
             android:textAllCaps="false" />
 
-        <Button
+       <!-- <Button
             android:id="@+id/barinn_minn_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:layout_marginRight="20dp"
             android:textSize="18dp"
             android:textAllCaps="false" />
-
+        -->
         <Button
             android:id="@+id/komdu_mer_a_ovart_btn"
             android:layout_width="wrap_content"
