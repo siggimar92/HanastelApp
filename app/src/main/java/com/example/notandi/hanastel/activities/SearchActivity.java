@@ -109,4 +109,9 @@ public class SearchActivity extends MainActivity{
         Thread mythread = new Thread(runnable);
         mythread.start();
     }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+    }
 }

@@ -1,18 +1,11 @@
 package com.example.notandi.hanastel.activities;
 
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.notandi.hanastel.R;
 import com.example.notandi.hanastel.product.CocktailRecipe;
@@ -25,17 +18,17 @@ import java.util.Random;
 
 public class RandomActivity extends MainActivity {
 
-    Sensor accelerometer;
-    SensorManager sm;
+    //Sensor accelerometer;
+    //SensorManager sm;
     ImageView imageView;
     Animation animRotate;
 
-    private String[] cocktails = {"The Juicy Lucy", "Sex on the beach", "Martini", "Volcano", "Sleipur Garpur"};
+    //private String[] cocktails = {"The Juicy Lucy", "Sex on the beach", "Martini", "Volcano", "Sleipur Garpur"};
 
-    private static final int SHAKE_THRESHOLD = 300;
-    private long lastTime;
-    private float x, y, z;
-    private float last_x, last_y, last_z;
+    //private static final int SHAKE_THRESHOLD = 300;
+    //private long lastTime;
+    //private float x, y, z;
+    //private float last_x, last_y, last_z;
     //private boolean isShaking = false;
 
     @Override
@@ -59,19 +52,22 @@ public class RandomActivity extends MainActivity {
     }
 
     public void onRandomButtonClick(View view){
-        imageView.clearAnimation();
         Random r = new Random();
-        CocktailRecipe cr = new CocktailRecipe();
-        final int i = r.nextInt(5);
-
-        cr.setName(cocktails[i]);
-        cr.setImgName("cocktail");
-        cr.setDescription("blanda bara öllu saman");
+        final int i = r.nextInt(recipes.size()-1);
+        CocktailRecipe cr = recipes.get(i);
 
         Intent intent = new Intent(getApplicationContext(), DrinkDetailActivity.class);
         intent.putExtra("clickedCocktail", cr);
         intent.putExtra("isRandom", true);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.expand);
+
+
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
     }
 
     /*public void onSensorChanged(SensorEvent event) {

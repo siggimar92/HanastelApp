@@ -143,21 +143,33 @@ public class MainActivity extends AppCompatActivity {
     public void onAllDrinksClick(View view){
         Intent intent = new Intent(this, AllDrinksActivity.class);
         startActivity(intent);
+
+        // animation
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void onSearchClick(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
+
+        // animation
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void onMyBarClick(View view){
         Intent intent = new Intent(this, MyBarActivity.class);
         startActivity(intent);
+
+        // animation
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void onRandomClick(View view){
         Intent intent = new Intent(this, RandomActivity.class);
         startActivity(intent);
+
+        // animation
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void startDataBase(){

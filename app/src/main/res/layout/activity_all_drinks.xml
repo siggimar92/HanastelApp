@@ -3,9 +3,10 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:orientation="vertical">
-<ListView
-    android:id="@+id/drinks"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"/>
+android:orientation="vertical"
+    android:background="#ffffff">
+    <ListView
+        android:id="@+id/drinks"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 </RelativeLayout>

@@ -38,17 +38,26 @@ public class DrinkDetailActivity extends AllDrinksActivity {
         drinkIngredients = (ListView) findViewById(R.id.drink_detail_ingredients_list);
         drinkDescription = (TextView) findViewById(R.id.drink_detail_description);
         drinkImage = (ImageView) findViewById(R.id.drink_detail_image);
-        adapter = new DrinkDetailIngredientsAdapter(this, cr.getIngredientsList());
+        adapter = new DrinkDetailIngredientsAdapter(getApplicationContext(), cr.getIngredientsList());
 
         drinkName.setText(cr.getName());
 
         isRandom = (Boolean)i.getSerializableExtra("isRandom");
-        if (!isRandom) {
+        //if (!isRandom) {
             drinkIngredients.setAdapter(adapter);
-        }
+        //}
         drinkDescription.setText(cr.getDescription());
         drinkImage.setImageResource(cr.getImgResourceId(getApplicationContext()));
 
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isRandom) {
+            overridePendingTransition(R.anim.fade_in, R.anim.shrink);
+        } else {
+            overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+        }
     }
 
     @Override
