@@ -1,5 +1,6 @@
 package com.example.notandi.hanastel.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,6 +14,7 @@ import com.example.notandi.hanastel.domain.Favorite;
 import com.example.notandi.hanastel.domain.IngredientInDrink;
 import com.example.notandi.hanastel.domain.IngredientRaw;
 import com.example.notandi.hanastel.domain.MyBarIngredient;
+import com.example.notandi.hanastel.product.CocktailRecipe;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -220,5 +222,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public Cursor showAllTables(){
         String mySql = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;";
         return myDataBase.rawQuery(mySql, null);
+    }
+
+    public void addFavorite(int i, CocktailRecipe favRecipie){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("_id", i);
+        values.put("CocktailId", favRecipie.getCocktailId());
+
+        db.insert("Favorites", null, values);
     }
 }
