@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         domainIngredientsInDrinks = myDbHelper.getDomainIngredientsInDrinks();
         domainMyBarIngredients = myDbHelper.getDomainMyBarIngredient();
         mapDomainToProduct();
+
+        //new Populate().execute();
     }
 
     private void mapDomainToProduct(){
@@ -204,10 +206,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            /*
             startDataBase();
             fillDomain();
             publishProgress();
+            */
+
+            Log.d("populate", "doInBackgraound: function call, background proccess started");
+            startDataBase();
+            domainCocktails = myDbHelper.getDomainCocktails();
+            domainFavorites = myDbHelper.getDomainFavorites();
+            domainIngredientsRaw = myDbHelper.getDomainIngredientRaw();
+            domainIngredientsInDrinks = myDbHelper.getDomainIngredientsInDrinks();
+            domainMyBarIngredients = myDbHelper.getDomainMyBarIngredient();
+            mapDomainToProduct();
 
             return null;
         }
