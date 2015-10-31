@@ -53,11 +53,11 @@ public class DrinkDetailActivity extends AllDrinksActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
-        if (isRandom) {
+        //if (isRandom) {
             overridePendingTransition(R.anim.fade_in, R.anim.shrink);
-        } else {
-            overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
-        }
+        //} else {
+        //    overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+        //}
     }
 
     @Override

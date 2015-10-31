@@ -1,6 +1,7 @@
 package com.example.notandi.hanastel.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,12 @@ public class SelectedIngredientsAdapter extends ArrayAdapter<IngredientRaw>{
         TextView ingredientView = (TextView) convertView.findViewById(R.id.ingredent_list_item);
         ingredientView.setText(ingr);
 
+        ingredientView.setTextColor(Color.parseColor("#FFFFFF"));
+
         Button deleteButton = (Button) convertView.findViewById(R.id.ingredient_delete_btn);
+
+        deleteButton.setTextColor(Color.parseColor("#FFFFFF"));
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

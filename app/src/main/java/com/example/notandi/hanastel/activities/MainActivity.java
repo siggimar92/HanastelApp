@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // animation
-        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
+        //overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void onMyBarClick(View view){
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // animation
-        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
+        //overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void onRandomClick(View view){
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // animation
-        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
+        //overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
     }
 
     public void startDataBase(){

@@ -2,23 +2,39 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:scaleType = "centerCrop"
+    android:padding="10dp">
 
     <AutoCompleteTextView
         android:id="@+id/search_Box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Leita að hráefni"
+        android:textColor="#ffffff"
+        />
 
     <Button
         android:id="@+id/search_button"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Leita"
+        android:textColor="#ffffff"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        android:background="#209a9d"
+        android:alpha="0.55"
         android:onClick="onSearchClick"/>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ingredient_list">
 

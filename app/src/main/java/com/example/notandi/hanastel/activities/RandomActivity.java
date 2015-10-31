@@ -65,10 +65,10 @@ public class RandomActivity extends MainActivity {
 
     }
 
-    public void onBackPressed() {
+    /*public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
-    }
+    }*/
 
     /*public void onSensorChanged(SensorEvent event) {
         long curTime = System.currentTimeMillis();
