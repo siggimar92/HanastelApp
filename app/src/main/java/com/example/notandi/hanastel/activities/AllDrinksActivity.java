@@ -61,5 +61,13 @@ public class AllDrinksActivity extends MainActivity {
         intent.putExtra("clickedCocktail", cr);
         intent.putExtra("isRandom", false);
         startActivity(intent);
+
+        // animation
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
     }
 }
