@@ -25,4 +25,10 @@ public class MyBarActivity extends MainActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+    }
 }
+
