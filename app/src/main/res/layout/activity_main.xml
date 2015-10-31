@@ -1,13 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:scaleType = "centerCrop"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     tools:context=".MainActivity"
     android:weightSum="1" >
 
@@ -27,66 +28,61 @@
         android:layout_weight="0.47"
         android:gravity="bottom">
 
-        <Button
-            android:id="@+id/allir_drykkir_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Allir Drykkir"
-            android:onClick="onAllDrinksClick"
-            android:height="60dp"
-            android:textColor="#ffffff"
-            android:background="#6b1f1c"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textAllCaps="false"
-            android:textSize="18dp" />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/leita_eftir_hraefni_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Leita eftir hráefni"
-            android:onClick="onSearchClick"
-            android:layout_column="0"
-            android:height="60dp"
-            android:textColor="#ffffff"
-            android:background="#6b1f1c"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="18dp"
-            android:textAllCaps="false" />
+            <ImageButton
+                android:id="@+id/allir_drykkir_btn"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:onClick="onAllDrinksClick"
+                android:src="@drawable/btn_all"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
 
-       <Button
-            android:id="@+id/barinn_minn_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Uppáhalds"
-            android:onClick="onMyBarClick"
-            android:height="60dp"
-            android:textColor="#ffffff"
-            android:background="#6b1f1c"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="18dp"
-            android:textAllCaps="false" />
+            <ImageButton
+                android:id="@+id/leita_eftir_hraefni_btn"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:onClick="onSearchClick"
+                android:src="@drawable/btn_ingredient"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/komdu_mer_a_ovart_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Komdu mér á óvart"
-            android:onClick="onRandomClick"
-            android:layout_column="0"
-            android:height="60dp"
-            android:textColor="#ffffff"
-            android:background="#6b1f1c"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="18dp"
-            android:textAllCaps="false" />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/barinn_minn_btn"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:onClick="onMyBarClick"
+                android:src="@drawable/btn_favorite"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/komdu_mer_a_ovart_btn"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:onClick="onRandomClick"
+                android:src="@drawable/btn_hjolid"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
     </TableLayout>
 

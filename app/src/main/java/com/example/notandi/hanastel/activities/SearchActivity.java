@@ -1,5 +1,6 @@
 package com.example.notandi.hanastel.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -42,12 +43,14 @@ public class SearchActivity extends MainActivity{
         searchBox = (TextView) findViewById(R.id.search_Box);
         searchButton = (Button) findViewById(R.id.search_button);
 
-
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.search_Box);
         actv.setAdapter(new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, rawIngredientNames));
 
 
         ListView ingr = (ListView) findViewById(R.id.ingredient_list);
+
+        ingr.setBackgroundColor(Color.argb(125,0,0,0));
+
         selectedIngredientsAdapter = new SelectedIngredientsAdapter(this,ingredientsChosen);
         ingr.setAdapter(selectedIngredientsAdapter);
 
@@ -110,8 +113,8 @@ public class SearchActivity extends MainActivity{
         mythread.start();
     }
 
-    public void onBackPressed() {
+    /*public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
-    }
+    }*/
 }
