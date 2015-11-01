@@ -31,7 +31,7 @@
         android:shadowRadius="4"
         android:background="#209a9d"
         android:alpha="0.55"
-        android:onClick="onSearchClick"/>
+        android:onClick="onSearchClicked"/>
 
     <ListView
         android:layout_width="fill_parent"

@@ -2,6 +2,8 @@ package com.example.notandi.hanastel.product;
 
 import android.content.Context;
 
+import com.example.notandi.hanastel.domain.IngredientRaw;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

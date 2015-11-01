@@ -38,8 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-    int index = 0;
-
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
@@ -47,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public void createDataBase() throws IOException {
-        //THIS MAY NOT WORK, IF ENCOUNTING ERROR WITH DB, CHECK IF THIS IS RIGHT
+        //THIS MAY NOT WORK, IF ENCOUNTING ERROR WITH DB, CHANGE TO FUNCTION CALL
         boolean dbExist = false; //checkDataBase();
         if(dbExist){
             //do nothing - database already exist
@@ -229,27 +227,73 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public boolean searchForFavorite(CocktailRecipe favRecipie) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT COUNT(*) FROM Favorites WHERE CocktailId = \'" + favRecipie.getCocktailId() + "\'", null);
+        //Cursor c = db.rawQuery("SELECT COUNT(*) FROM Favorites WHERE CocktailId = " + favRecipie.getCocktailId(), null);
+        Cursor c = db.rawQuery("SELECT * FROM Favorites", null);
 
         Log.d("------> Search Fav: ", "c-> " + c.getCount());
 
+
+        if(c.moveToFirst()){
+            do{
+                int type1 = c.getType(0);
+                int type2 = c.getType(1);
+                if(type2 != 0){
+                    int cId = c.getInt(1);
+                    if(cId == favRecipie.getCocktailId()){
+                        c.close();
+                        return true;
+                    }
+                }
+                else{
+                    Log.d("----> Search fav:", "CocktailId is NULL");
+
+                }
+                int ID = c.getInt(0);
+
+
+            }while(c.moveToNext());
+        }
         if (c.getCount() > 0) {
             Log.d("------> Search Fav: ", "TRUE");
+            c.close();
             return true;
         } else {
             Log.d("------> Search Fav: ", "FALSE");
+            c.close();
             return false;
         }
+
     }
     public void addFavorite(CocktailRecipe favRecipie){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        index++;
-        values.put("_id", index);
         values.put("CocktailId", favRecipie.getCocktailId());
 
         db.insert("Favorites", null, values);
+
+        Cursor c = db.rawQuery("SELECT * FROM Favorites", null);
+
+        if(c.moveToFirst()){
+            do{
+                int type1 = c.getType(0);
+                int type2 = c.getType(1);
+                if(type2 != 0){
+                    int cId = c.getInt(1);
+                    Log.d("bla", "bla");
+                }
+                else{
+                    Log.d("----> fav add:", "CocktailId is NULL");
+
+                }
+                int ID = c.getInt(0);
+
+
+            }while(c.moveToNext());
+        }
+
+        db.close();
+
 
         Log.d("Add DB: ", "Successfully Added to DB" + favRecipie.getCocktailId());
     }
@@ -259,9 +303,32 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        //db.rawQuery("DELETE FROM Favorites WHERE CocktailId = \'" + favRecipie.getCocktailId() + "\'", null);
+        db.rawQuery("DELETE FROM Favorites WHERE CocktailId = " + favRecipie.getCocktailId(), null);
 
-        db.delete("Favorites", "CocktailId = '" + favRecipie.getCocktailId() + "'", null);
+        //db.delete("Favorites", "CocktailId = '" + favRecipie.getCocktailId() + "'", null);
+
+
+        Cursor c = db.rawQuery("SELECT * FROM Favorites", null);
+
+        if(c.moveToFirst()){
+            do{
+                int type1 = c.getType(0);
+                int type2 = c.getType(1);
+                if(type2 != 0){
+                    int cId = c.getInt(1);
+                }
+                else{
+                    Log.d("----> fav del:", "CocktailId is NULL");
+
+                }
+                int ID = c.getInt(0);
+
+
+            }while(c.moveToNext());
+        }
+
+        db.close();
+
 
         Log.d("Delete from DB: ", "Successfully deleted");
     }

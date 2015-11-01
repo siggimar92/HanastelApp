@@ -21,6 +21,7 @@ import com.example.notandi.hanastel.domain.IngredientInDrink;
 import com.example.notandi.hanastel.domain.IngredientRaw;
 import com.example.notandi.hanastel.domain.MyBarIngredient;
 import com.example.notandi.hanastel.product.CocktailRecipe;
+import com.example.notandi.hanastel.product.CocktailRecipeAddon;
 import com.example.notandi.hanastel.product.Ingredient;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<IngredientRaw> domainIngredientsRaw;
     ArrayList<IngredientInDrink> domainIngredientsInDrinks;
     ArrayList<MyBarIngredient> domainMyBarIngredients;
+    static ArrayList<CocktailRecipeAddon> filteredRecipes = new ArrayList<>();
 
     ArrayList<CocktailRecipe> recipes;
     ArrayList<Ingredient> ingredients;

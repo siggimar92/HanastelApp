@@ -22,8 +22,7 @@
             android:background="@drawable/btn_favorite_star_alpha"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:onClick="onFavoriteClick"/>
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/drink_detail_name"

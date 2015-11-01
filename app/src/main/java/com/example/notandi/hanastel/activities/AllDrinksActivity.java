@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.notandi.hanastel.adapters.AllFilteredDrinksAdapter;
 import com.example.notandi.hanastel.product.CocktailRecipe;
+import com.example.notandi.hanastel.product.CocktailRecipeAddon;
 import com.example.notandi.hanastel.product.Ingredient;
 import com.example.notandi.hanastel.R;
 import com.example.notandi.hanastel.adapters.AllDrinksAdapter;
@@ -20,25 +22,36 @@ import java.util.ArrayList;
 public class AllDrinksActivity extends MainActivity {
 
     private ListView listView;
-    ArrayList<CocktailRecipe> cocktails = new ArrayList<>();
     AllDrinksAdapter adapter;
+    AllFilteredDrinksAdapter filteredAdapter;
+    boolean isSearch;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_drinks);
-
+        Intent i = getIntent();
+        isSearch = i.getBooleanExtra("isSearch", false);
 
         listView = (ListView) findViewById(R.id.drinks);
         adapter = new AllDrinksAdapter(this, recipes);
-        listView.setAdapter(adapter);
+
+        filteredAdapter = new AllFilteredDrinksAdapter(this, filteredRecipes);
+
+        if(isSearch){
+            listView.setAdapter(filteredAdapter);
+        }
+        else{
+            listView.setAdapter(adapter);
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CocktailRecipe cr = (CocktailRecipe) parent.getItemAtPosition(position);
-                onDrinkDetailClick(view, cr);
+
+                Object o = parent.getItemAtPosition(position);
+                onDrinkDetailClick(view,o);
                 //selectedIngredientsAdapter.notifyDataSetChanged();
                 //searchBox.setText("");
             }
@@ -48,7 +61,6 @@ public class AllDrinksActivity extends MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO: Set state to as before clicking on details
     }
 
     @Override
@@ -56,18 +68,22 @@ public class AllDrinksActivity extends MainActivity {
         return false;
     }
 
-    public void onDrinkDetailClick(View view, CocktailRecipe cr) {
+    public void onDrinkDetailClick(View view, Object o) {
         Intent intent = new Intent(this, DrinkDetailActivity.class);
-        intent.putExtra("clickedCocktail", cr);
+        if(isSearch){
+            CocktailRecipeAddon cra = (CocktailRecipeAddon) o;
+            intent.putExtra("clickedCocktailSearch", cra);
+            //intent.putExtra("clickedCocktailSearchList", cra.getIngredientAddons());
+            intent.putExtra("isSearchDetail", true);
+        }
+        else{
+            CocktailRecipe cr = (CocktailRecipe) o;
+            intent.putExtra("clickedCocktail", cr);
+            intent.putExtra("isSearchDetail", false);
+
+        }
+
         intent.putExtra("isRandom", false);
         startActivity(intent);
-
-        // animation
-        overridePendingTransition(R.anim.fade_in, R.anim.expand);
-    }
-
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
     }
 }

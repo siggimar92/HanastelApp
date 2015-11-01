@@ -12,10 +12,13 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.notandi.hanastel.adapters.DrinkDetailIngredientsAddonAdapter;
 import com.example.notandi.hanastel.domain.Cocktail;
 import com.example.notandi.hanastel.product.CocktailRecipe;
 import com.example.notandi.hanastel.R;
 import com.example.notandi.hanastel.adapters.DrinkDetailIngredientsAdapter;
+import com.example.notandi.hanastel.product.CocktailRecipeAddon;
+import com.example.notandi.hanastel.product.IngredientAddon;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 public class DrinkDetailActivity extends AllDrinksActivity {
 
     CocktailRecipe cr;
+    CocktailRecipeAddon cra;
     Boolean isRandom = false;
     TextView drinkName;
     ImageView drinkImage;
@@ -32,42 +36,51 @@ public class DrinkDetailActivity extends AllDrinksActivity {
     TextView drinkDescription;
     ImageButton starButton;
     DrinkDetailIngredientsAdapter adapter;
+    DrinkDetailIngredientsAddonAdapter adapterAddon;
     boolean hasClickedFavorite = false;
     ArrayList<CocktailRecipe> favoriteDrinks = new ArrayList<CocktailRecipe>();
-    final int index = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_detail);
-        Intent i = getIntent();
         starButton = (ImageButton) findViewById(R.id.favorite_star);
-
-        cr = (CocktailRecipe)i.getSerializableExtra("clickedCocktail");
-
         drinkName = (TextView) findViewById(R.id.drink_detail_name);
         drinkIngredients = (ListView) findViewById(R.id.drink_detail_ingredients_list);
         drinkDescription = (TextView) findViewById(R.id.drink_detail_description);
         drinkImage = (ImageView) findViewById(R.id.drink_detail_image);
-        adapter = new DrinkDetailIngredientsAdapter(getApplicationContext(), cr.getIngredientsList());
 
-        drinkName.setText(cr.getName());
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra("isSearchDetail", false)){
+            cra = (CocktailRecipeAddon) intent.getSerializableExtra("clickedCocktailSearch");
+            adapter = new DrinkDetailIngredientsAdapter(this, cra.getIngredientsList());
+            drinkName.setText(cra.getName());
+            drinkDescription.setText(cra.getDescription());
+            drinkImage.setImageResource(cra.getImgResourceId(getApplicationContext()));
+            drinkIngredients.setAdapter(adapter);
+        }
+        else{
+            cr = (CocktailRecipe)intent.getSerializableExtra("clickedCocktail");
+            adapter = new DrinkDetailIngredientsAdapter(this, cr.getIngredientsList());
+            drinkDescription.setText(cr.getDescription());
+            drinkImage.setImageResource(cr.getImgResourceId(getApplicationContext()));
+            drinkName.setText(cr.getName());
+            drinkIngredients.setAdapter(adapter);
+        }
 
-        isRandom = (Boolean)i.getSerializableExtra("isRandom");
-        //if (!isRandom) {
-        drinkIngredients.setAdapter(adapter);
-        //}
-        drinkDescription.setText(cr.getDescription());
-        drinkImage.setImageResource(cr.getImgResourceId(getApplicationContext()));
-
-        if (myDbHelper.searchForFavorite(cr)) {
+        /*if (myDbHelper.searchForFavorite(cr)) {
             hasClickedFavorite = true;
             starButton.setBackgroundResource(R.drawable.btn_favorite_star);
         } else {
             hasClickedFavorite = false;
             starButton.setBackgroundResource(R.drawable.btn_favorite_star_alpha);
-        }
+        }*/
+
+        isRandom = (Boolean)intent.getSerializableExtra("isRandom");
+
+
+
 
         starButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +88,11 @@ public class DrinkDetailActivity extends AllDrinksActivity {
                 if (!hasClickedFavorite) {
                     hasClickedFavorite = true;
                     starButton.setBackgroundResource(R.drawable.btn_favorite_star);
-                    myDbHelper.addFavorite(cr);
+                    //myDbHelper.addFavorite(cr);
                 } else {
                     hasClickedFavorite = false;
                     starButton.setBackgroundResource(R.drawable.btn_favorite_star_alpha);
-                    myDbHelper.deleteFavorite(cr);
+                    //myDbHelper.deleteFavorite(cr);
                 }
             }
         });
@@ -89,27 +102,12 @@ public class DrinkDetailActivity extends AllDrinksActivity {
     public void onBackPressed() {
         super.onBackPressed();
         //if (isRandom) {
-            overridePendingTransition(R.anim.fade_in, R.anim.shrink);
+        overridePendingTransition(R.anim.fade_in, R.anim.shrink);
         //} else {
         //    overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
         //}
     }
 
-
-
-
-    public void onFavoriteClick(){
-        /*if(hasClickedFavorite){
-            hasClickedFavorite = false;
-            favoriteDrinks.add(cr);
-            starButton.setBackground(this.getResources().getDrawable(R.drawable.btn_favorite_star));
-        }
-        else{
-            hasClickedFavorite = true;
-            favoriteDrinks.remove(cr);
-            starButton.setBackground(this.getResources().getDrawable(R.drawable.btn_favorite_star_alpha));
-        }*/
-    }
 
     @Override
     protected void onResume() {

@@ -1,5 +1,6 @@
 package com.example.notandi.hanastel.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,10 @@ import android.widget.TextView;
 import com.example.notandi.hanastel.R;
 import com.example.notandi.hanastel.adapters.SelectedIngredientsAdapter;
 import com.example.notandi.hanastel.domain.IngredientRaw;
+import com.example.notandi.hanastel.product.CocktailRecipe;
+import com.example.notandi.hanastel.product.CocktailRecipeAddon;
+import com.example.notandi.hanastel.product.Ingredient;
+import com.example.notandi.hanastel.product.IngredientAddon;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,8 @@ public class SearchActivity extends MainActivity{
     ArrayList<IngredientRaw> ingredientsChosen = new ArrayList<>();
     SelectedIngredientsAdapter selectedIngredientsAdapter;
     ArrayList<String> rawIngredientNames = new ArrayList<>();
+    ArrayList<CocktailRecipeAddon> cocktailCopies = new ArrayList<>();
+
     TextView searchBox;
     Button searchButton;
 
@@ -33,15 +40,37 @@ public class SearchActivity extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
         for(IngredientRaw ir : domainIngredientsRaw){
             if(!rawIngredientNames.contains(ir.getName())){
                 rawIngredientNames.add(ir.getName());
             }
         }
 
+        for(CocktailRecipe cr : recipes){
+            CocktailRecipeAddon cra = new CocktailRecipeAddon();
+            cra.setName(cr.getName());
+            cra.setDescription(cr.getDescription());
+            cra.setImgName(cr.getImgName());
+            cra.setCocktailId(cr.getCocktailId());
+
+            ArrayList<IngredientAddon> addons = new ArrayList<>();
+            for(Ingredient i : cr.getIngredientsList()){
+                IngredientAddon ia = new IngredientAddon();
+                ia.setName(i.getName());
+                ia.set_id(i.getId());
+                ia.setIsAvailable(false);
+                addons.add(ia);
+            }
+            cra.setIngredientAddons(addons);
+            cra.setIngredients(cr.getIngredientsList());
+            cocktailCopies.add(cra);
+        }
+
         // setup
         searchBox = (TextView) findViewById(R.id.search_Box);
         searchButton = (Button) findViewById(R.id.search_button);
+
 
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.search_Box);
         actv.setAdapter(new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, rawIngredientNames));
@@ -83,6 +112,7 @@ public class SearchActivity extends MainActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        filteredRecipes.clear();
     }
 
     @Override
@@ -90,27 +120,48 @@ public class SearchActivity extends MainActivity{
         return false;
     }
 
-    public void onSearchClick(View view){
-        Runnable runnable = new Runnable() {
-            public void run() {
+    public void onSearchClicked(View view){
+        //set all ingredients in all cocktails to false
+        setAllIngredientsAvailableFalse();
 
-                long endTime = System.currentTimeMillis() +
-                        20*1000;
-
-                while (System.currentTimeMillis() < endTime) {
-                    synchronized (this) {
-                        try {
-                            wait(endTime -
-                                    System.currentTimeMillis());
-                        } catch (Exception e) {}
+        if(!ingredientsChosen.isEmpty()){
+            for(CocktailRecipeAddon r : cocktailCopies){
+                for(IngredientAddon in : r.getIngredientAddons()){
+                    for(IngredientRaw i : ingredientsChosen){
+                        if(i.get_id() == in.get_id()){
+                            in.setIsAvailable(true);
+                            break;
+                        }
                     }
-
+                }
+                boolean noAvailable = true;
+                for(IngredientAddon ingra : r.getIngredientAddons()){
+                    if(ingra.isAvailable()) noAvailable = false;
+                }
+                if(!noAvailable){
+                    CocktailRecipeAddon cra = new CocktailRecipeAddon();
+                    cra.setName(r.getName());
+                    cra.setCocktailId(r.getCocktailId());
+                    cra.setImgName(r.getImgName());
+                    cra.setIngredientAddons(r.getIngredientAddons());
+                    cra.setDescription(r.getDescription());
+                    cra.setIngredients(r.getIngredientsList());
+                    filteredRecipes.add(cra);
                 }
             }
-        };
+        }
+        Intent intent = new Intent(this, AllDrinksActivity.class);
+        intent.putExtra("isSearch", true);
+        startActivity(intent);
+    }
 
-        Thread mythread = new Thread(runnable);
-        mythread.start();
+    public void setAllIngredientsAvailableFalse(){
+        for(CocktailRecipeAddon cr : cocktailCopies){
+            for(IngredientAddon i : cr.getIngredientAddons()){
+                i.setIsAvailable(false);
+            }
+        }
+
     }
 
     /*public void onBackPressed() {
