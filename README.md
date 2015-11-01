@@ -6,4 +6,4 @@ Hanastél er app í vinnslu sem mun innihalda uppskriftir af cocktail-um úr hin
 Notandi á að geta vistað áfenga drykki sem það á heima hjá sér undir "Barinn minn" og notað það til þess að leita að cocktail-um sem henta þeim.
 Einnig mun vera hægt að vista "uppáhalds" drykki ef notandi finnur cocktail sem hann vill halda upp á.
 
-Eigendur verkefnisins eru: Hafþór Snær Þórsson, Hrafnkell Baldursson, Rannveig Guðmundsdóttir og Sigurður Már Atlason
+Eigendur verkefnisins eru: Hrafnkell Baldursson, Rannveig Guðmundsdóttir og Sigurður Már Atlason
